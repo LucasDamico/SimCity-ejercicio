@@ -1,0 +1,43 @@
+package practicaClases;
+
+import java.util.InputMismatchException; 
+import java.util.Scanner;
+
+public class Principal {
+	
+	public static void main(String[] args) {
+		Utilidades util= new Utilidades();
+		Ciudad ciudad;
+		Tienda tienda= new Tienda();
+		Alcalde jugador;
+		String apellidoJugador;
+		int opc=0;
+		
+		System.out.println("Bienvenido nuevo alcalde ¿Cual es su apellido?");
+		apellidoJugador=util.ingresarString();
+		System.out.println("¿Y cual es su nombre?");
+		jugador=new Alcalde(util.ingresarString(), apellidoJugador);
+		
+		System.out.println("Un placer " + jugador.nombre + " " + jugador.apellido);
+		System.out.println("¿Cual será el nombre de su ciudad?");
+		ciudad =new Ciudad(util.ingresarString(), tienda.edificios);
+		System.out.println("Seleccione que edificios quiere comprar para la inauguración de " + ciudad.nombre);
+		System.out.println(jugador.dinero + "$");
+		System.out.println();
+		
+		
+		do {
+			System.out.println("Ingrese 0 cuando quiera dejar de comprar edificios \n");
+			tienda.mostrarTienda();
+		    opc = util.ingresarEntero(0,tienda.edificios.length);
+		    if(opc!=0) {
+		        tienda.comprarEdificio(opc-1, jugador);
+				System.out.println(tienda.edificios[opc-1].comprado); //enseña si se compró si lo compró
+		    }
+		    System.out.println(jugador.dinero + "$");					
+		}while(opc!=0);
+		
+		ciudad.cargarEdificiosComprados(tienda.edificios);
+		ciudad.mostrarEdificiosComprados();
+		ciudad.mostrarEstadisticas();
+		
