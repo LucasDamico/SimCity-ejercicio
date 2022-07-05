@@ -1,0 +1,101 @@
+package practicaClases;
+
+public class Ciudad {
+
+	String nombre;
+	int promedioSeguridad=0;
+	int promedioPrevIncendios=0;
+	int promedioFelicidad=0;
+	int cantidadEdificios=0;
+	int dineroDesembolsado=0;
+	
+	Edificio EdMaxFelicidad= new Edificio("AuxMaxF", "", "", "", "0", "");
+	Edificio EdMaxSeguridad= new Edificio("AuxMaxS", "", "0", "", "", "");
+	Edificio EdMaxPrevIncendios= new Edificio("AuxMaxPI", "", "", "0", "", "");
+	Edificio EdMaxPrecio= new Edificio("AuxMaxP", "", "", "", "", "0");
+	Edificio EdMinFelicidad= new Edificio("AuxMinF", "", "", "", "9999999", "");
+	Edificio EdMinSeguridad= new Edificio("AuxMinS", "", "99999999", "", "", "");
+	Edificio EdMinPrevIncendios= new Edificio("AuxMinPI", "", "", "99999999", "", "");
+	Edificio EdMinPrecio= new Edificio("AuxMinP", "", "", "", "", "99999999");
+	
+	Edificio edificiosComprados[];
+	
+	
+	public Ciudad(String nombre, Edificio[] edificios) {
+		this.nombre=nombre;
+		edificiosComprados= new Edificio[getMaxCantidadEdificios(edificios)];
+		
+	}
+	
+	public void cargarEdificiosComprados(Edificio[] edificiosComprados) {
+		int totalFelicidad=0;
+		for (int i=0;i<this.edificiosComprados.length; i++) {
+			if(edificiosComprados[i].comprado) {
+			    this.edificiosComprados[i]=edificiosComprados[i]; 
+			    promedioSeguridad=Integer.parseInt(this.edificiosComprados[i].seguridad);
+			    promedioPrevIncendios=Integer.parseInt(this.edificiosComprados[i].prevIncendios);
+			    totalFelicidad+=Integer.parseInt(this.edificiosComprados[i].felicidad);
+			    dineroDesembolsado+=Integer.parseInt(this.edificiosComprados[i].precio);
+			    
+			    EdMaxPrecio=(Integer.parseInt(this.edificiosComprados[i].precio)>Integer.parseInt(EdMaxPrecio.precio))? this.edificiosComprados[i]:EdMaxPrecio;
+			    EdMaxFelicidad=(Integer.parseInt(this.edificiosComprados[i].felicidad)>Integer.parseInt(EdMaxPrecio.felicidad))? this.edificiosComprados[i]:EdMaxPrecio;
+			    EdMaxSeguridad=(Integer.parseInt(this.edificiosComprados[i].seguridad)>Integer.parseInt(EdMaxPrecio.seguridad))? this.edificiosComprados[i]:EdMaxPrecio;
+			    EdMaxPrevIncendios=(Integer.parseInt(this.edificiosComprados[i].prevIncendios)>Integer.parseInt(EdMaxPrecio.prevIncendios))? this.edificiosComprados[i]:EdMaxPrecio;
+			    
+			    EdMinPrecio=(Integer.parseInt(this.edificiosComprados[i].precio)<Integer.parseInt(EdMinPrecio.precio))? this.edificiosComprados[i]:EdMinPrecio ;
+			    EdMinFelicidad=(Integer.parseInt(this.edificiosComprados[i].felicidad)<Integer.parseInt(EdMinPrecio.felicidad))? this.edificiosComprados[i]:EdMinPrecio ;
+			    EdMinSeguridad=(Integer.parseInt(this.edificiosComprados[i].seguridad)<Integer.parseInt(EdMinPrecio.seguridad))? this.edificiosComprados[i]:EdMinPrecio ;
+			    EdMinPrevIncendios=(Integer.parseInt(this.edificiosComprados[i].prevIncendios)<Integer.parseInt(EdMinPrecio.prevIncendios))? this.edificiosComprados[i]:EdMinPrecio ;
+			    
+				cantidadEdificios++;
+			}
+		} 
+		promedioFelicidad=totalFelicidad/cantidadEdificios;
+		
+	}
+	
+	public void mostrarEdificiosComprados() {
+		int i=0;
+		boolean terminar=false;
+		do {
+			if(edificiosComprados[i]!=null) {
+			    System.out.println(edificiosComprados[i].nombre);
+			   
+			}else {
+				terminar=true;
+			}
+			i++;
+		}while(!terminar);
+	}
+    
+	public void mostrarEstadisticas() {
+		System.out.println(nombre + " tiene un promedio de:");
+		System.out.println(promedioSeguridad + " en seguridad\n" + promedioPrevIncendios + " en prevención de incendios\n" + promedioFelicidad + " en felicidad");
+		System.out.println("Edificio de mayor contribución a felicidad:" + EdMaxFelicidad.nombre);
+		System.out.println("Edificio de menor contribución a felicidad:" + EdMinFelicidad.nombre);
+		System.out.println("Edificio de mayor contribución a seguridad:" + EdMaxSeguridad.nombre);
+		System.out.println("Edificio de menor contribución a seguridad:" + EdMinSeguridad.nombre);
+		System.out.println("Edificio de mayor contribución a prevención de incendios:" + EdMaxPrevIncendios.nombre);
+		System.out.println("Edificio de menor contribución a prevención de incendios:" + EdMinPrevIncendios.nombre);
+		System.out.println("Edificio de mayor valor:" + EdMaxPrecio.nombre);
+		System.out.println("Edificio de menor valor:" + EdMinPrecio.nombre);
+		System.out.println("Dinero desembolsado invertido en la ciudad:" + dineroDesembolsado);
+	}
+	
+	private int getMaxCantidadEdificios(Edificio[] edificios) {
+		int tamaño=0;
+		for(int i=0; i<edificios.length; i++) {
+			
+			if(edificios[i].tipo.toUpperCase().equals("MARAVILLA")) {
+				tamaño++;
+			}else if(i>0){
+				tamaño+=(edificios[i].tipo.toUpperCase()!=edificios[i].tipo.toUpperCase())? 1 : 0;
+			} else {
+				tamaño++;
+			}
+		}
+		return tamaño;
+	}
+	
+
+}
