@@ -1,0 +1,14 @@
+package practicaClases;
+
+public class Alcalde {
+
+	String nombre; 
+	String apellido;
+	int dinero =1000000;
+	
+	public Alcalde(String nombre, String apellido) {
+		this.nombre=nombre;
+		this.apellido=apellido;
+	}
+
+}
