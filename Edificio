@@ -1,0 +1,25 @@
+package practicaClases;
+
+public class Edificio {
+
+	String nombre;
+	String tipo;
+	String seguridad;
+	String prevIncendios;
+	String felicidad;
+	String precio;
+	boolean comprado=false;
+	
+	public Edificio(String nombre, String tipo, String seguridad, String prevIncendios, String felicidad, String precio) {
+	this.nombre=nombre;
+	this.tipo=tipo;
+	this.seguridad=seguridad;
+	this.prevIncendios=prevIncendios;
+	this.felicidad=felicidad;
+	this.precio=precio;
+	
+	}
+
+	
+
+}
