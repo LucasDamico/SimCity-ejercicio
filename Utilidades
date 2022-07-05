@@ -1,0 +1,40 @@
+package practicaClases;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Utilidades {
+
+	Scanner s= new Scanner(System.in);
+	public Utilidades() {
+		
+	}
+
+	public int ingresarEntero(int min, int max) {
+		int entero=0;
+		boolean error=false;
+		
+		do {
+			error=false;
+			try {
+				entero=s.nextInt();
+				error=(entero<min || entero>max)? true : false;
+			}catch(InputMismatchException e) {
+			    System.out.println("[ERROR] Ingrese un número");
+			    s.nextInt();
+			    error=true;
+//			}catch (Exception e) {
+//				System.out.println("[ERROR] Error inesperado" + e);
+//				error=true;
+			}
+		}while(error);
+		
+		
+		
+		return entero;
+	}
+	
+	public String ingresarString() {
+		return s.nextLine();
+	}
+}
